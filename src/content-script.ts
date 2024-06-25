@@ -22,7 +22,6 @@ const observer = new MutationObserver((mutations) => {
         const content = pre.children[0].children[1].children[0];
         if (!content) return;
 
-        // if codes already has a code with the same title, add a number to the title
         const title = language.textContent || "";
         let newTitle = title;
 
