@@ -2,7 +2,7 @@
   "name": "chrome-extension-starter",
   "private": true,
   "type": "module",
- "packageManager": "pnpm@9.1.3",
+  "packageManager": "pnpm@9.1.3",
   "scripts": {
     "prepare": "husky install",
     "dev": "vite build --watch",
@@ -13,7 +13,7 @@
   "author": "MichaelYuhe",
   "license": "MIT",
   "dependencies": {
-    "@zeabur/zeabur-js": "0.0.1-alpha1",
+    "@zeabur/zeabur-js": "0.0.1-alpha2",
     "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

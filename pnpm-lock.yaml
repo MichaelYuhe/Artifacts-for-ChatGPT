@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@zeabur/zeabur-js':
-        specifier: 0.0.1-alpha1
-        version: 0.0.1-alpha1
+        specifier: 0.0.1-alpha2
+        version: 0.0.1-alpha2
       jszip:
         specifier: ^3.10.1
         version: 3.10.1
@@ -425,8 +425,8 @@ packages:
     peerDependencies:
       vite: ^4 || ^5
 
-  '@zeabur/zeabur-js@0.0.1-alpha1':
-    resolution: {integrity: sha512-dR145wd1beMDRne87m5EITNrFAssOuN7K2eMOaUakZFU9Z285YYGVMIbl06vfEjLygcx8oZSjww9+dyM/ERsDA==}
+  '@zeabur/zeabur-js@0.0.1-alpha2':
+    resolution: {integrity: sha512-QPrG0UziErZEKKkR1e6ZJwfFgDV6KNcDuLoHPbkS13ORmZN36ZE6KNJy8ILRjWzVOVGVrhj1i1lHEOwc1R9fAQ==}
 
   ansi-escapes@6.2.0:
     resolution: {integrity: sha512-kzRaCqXnpzWs+3z5ABPQiVke+iq0KXkHo8xiWV4RPTi5Yli0l97BEQuhXV1s7+aSU/fu1kUuxgS4MsQ0fRuygw==}
@@ -1379,7 +1379,7 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  '@zeabur/zeabur-js@0.0.1-alpha1': {}
+  '@zeabur/zeabur-js@0.0.1-alpha2': {}
 
   ansi-escapes@6.2.0:
     dependencies:
