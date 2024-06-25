@@ -15,7 +15,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://chatgpt.com/*"],
       "js": ["content_script.js"]
     }
   ],
@@ -24,5 +24,5 @@
     "service_worker": "service_worker.js"
   },
   "permissions": ["sidePanel", "storage"],
-  "host_permissions": ["<all_urls>"]
+  "host_permissions": ["https://chatgpt.com/*"]
 }
