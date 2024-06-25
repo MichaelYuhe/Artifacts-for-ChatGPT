@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Artifacts for ChatGPT",
-  "description": "Bring Artifacts Ability to ChatGPT.",
+  "description": "Instantly preview and deploy artifacts crafted by ChatGPT.",
   "version": "1.0",
   "options_ui": {
     "page": "options.html",
