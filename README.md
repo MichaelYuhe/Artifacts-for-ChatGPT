@@ -15,8 +15,11 @@ Instantly preview and deploy artifacts crafted by ChatGPT.
 ## Roadmap
 
 [ ] Support React and other web frameworks.
+
 [ ] Allow deploy with custom domains.
+
 [ ] Publish to Chrome Web Store
+
 [ ] Support for other browsers
 
 ## How to Install
