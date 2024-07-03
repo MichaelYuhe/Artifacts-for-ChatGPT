@@ -4,6 +4,8 @@ Instantly preview and deploy artifacts crafted by ChatGPT.
 
 [![Watch the video](https://img.youtube.com/vi/DbcAerEBaQQ/maxresdefault.jpg)](https://youtu.be/DbcAerEBaQQ)
 
+Get the extension in Chrome web store: https://chromewebstore.google.com/detail/artifacts-for-chatgpt/mmedfkcijabkebmohholddkhmilonida
+
 ## How it works
 
 - Bootstrapped from [Chrome Extension Starter](https://github.com/MichaelYuhe/chrome-extension-starter)
@@ -18,7 +20,7 @@ Instantly preview and deploy artifacts crafted by ChatGPT.
 
 [ ] Allow deploy with custom domains.
 
-[ ] Publish to Chrome Web Store
+[x] Publish to Chrome Web Store
 
 [ ] Support for other browsers
 
