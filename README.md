@@ -24,6 +24,8 @@ Get the extension in Chrome web store: https://chromewebstore.google.com/detail/
 
 [ ] Support for other browsers
 
-## How to Install
+## Sponsor
 
-Download the zip file from the latest release, unzip it and choose the dist folder in Chrome developer mode.
+> This extension is free forever, if you love this extension, you can buy me a coffee here :D
+
+<a href="https://www.buymeacoffee.com/MichaelYuhe" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
