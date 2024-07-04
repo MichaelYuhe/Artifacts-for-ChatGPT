@@ -1,5 +1,3 @@
-console.log("Hello from Background!");
-
 // @ts-ignore
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })

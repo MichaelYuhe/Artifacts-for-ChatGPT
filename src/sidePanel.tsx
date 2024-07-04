@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import "./sidePanel.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Code } from "./content-script";
 import { deployToZeabur } from "./deploy";
 
@@ -14,9 +14,24 @@ const SidePanel = () => {
   const [mode, setMode] = useState<"codes" | "preview">("codes");
   const [domain, setDomain] = useState<string | null>(null);
   const [isDeploying, setIsDeploying] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState("");
+  const [projectID, setProjectID] = useState("");
 
+  const chatID =
+    useMemo(() => {
+      const splited = currentUrl.split("/");
+      if (splited.length < 5) return "";
+
+      return splited[4];
+    }, [currentUrl]) || "";
+
+  const dashURL =
+    useMemo(() => {
+      return "https://dash.zeabur.com/projects/" + projectID;
+    }, [projectID]) || "";
+
+  // listen for messages from the background script
   useEffect(() => {
-    // listen for messages from the background script
     chrome.runtime.onMessage.addListener((message) => {
       if (!message) return;
 
@@ -29,25 +44,81 @@ const SidePanel = () => {
     });
   }, []);
 
+  // get the current tab URL
+  useEffect(() => {
+    const getCurrentUrl = () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        setCurrentUrl(tabs[0].url || "");
+      });
+    };
+
+    getCurrentUrl();
+
+    // Optional: Set up a listener for tab updates
+    const tabUpdateListener = (tabId: any, changeInfo: any, tab: any) => {
+      if (changeInfo.status === "complete") {
+        getCurrentUrl();
+      }
+    };
+
+    chrome.tabs.onUpdated.addListener(tabUpdateListener);
+
+    return () => {
+      chrome.tabs.onUpdated.removeListener(tabUpdateListener);
+    };
+  }, []);
+
   useEffect(() => {
     setMode("codes");
   }, [selectedCode]);
 
+  function getAllSavedArtifacts() {
+    chrome.storage.local.get(["chatID", "codes"], (result) => {
+      console.log(result);
+    });
+  }
+
+  function saveArtifactsToProject() {
+    chrome.storage.local.set({
+      chatID,
+      codes,
+    });
+  }
+
   return (
     <div className="py-4 px-2">
-      {domain && (
-        <div className="flex items-center gap-x-2 mb-4">
-          <span>Deployed to:</span>
+      {/* <button
+        className="bg-black text-[#ddd] hover:bg-[#2b2a2a] font-medium px-4 py-2 transition-all shadow rounded-lg"
+        onClick={getAllSavedArtifacts}
+      >
+        Explore All Artifacts
+      </button> */}
 
+      <div className="flex flex-col gap-y-2">
+        {domain && (
+          <div className="flex items-center gap-x-2">
+            <span>Deployed to:</span>
+
+            <a
+              href={"https://" + domain}
+              target="_blank"
+              className="underline underline-offset-2"
+            >
+              {domain}
+            </a>
+          </div>
+        )}
+
+        {projectID && (
           <a
-            href={"https://" + domain}
             target="_blank"
             className="underline underline-offset-2"
+            href={dashURL}
           >
-            {domain}
+            Claim the project on Zeabur
           </a>
-        </div>
-      )}
+        )}
+      </div>
 
       <ul className="flex items-center gap-2 flex-wrap">
         {codes.map((code, index) => (
@@ -69,7 +140,7 @@ const SidePanel = () => {
 
       {selectedCode && (
         <div className="flex flex-col gap-y-2 mt-4">
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               className={`border border-black font-medium px-4 py-2 transition-all shadow rounded-lg ${
                 mode === "codes"
@@ -100,13 +171,14 @@ const SidePanel = () => {
                 onClick={async () => {
                   try {
                     setIsDeploying(true);
-                    const domainRes = await deployToZeabur(
+                    const res = await deployToZeabur(
                       selectedCode.content,
                       selectedCode.title,
                       selectedCode.language
                     );
 
-                    setDomain(domainRes);
+                    setDomain(res.domain);
+                    setProjectID(res.projectID);
                   } catch (error) {
                     console.error(error);
                   } finally {
@@ -124,6 +196,13 @@ const SidePanel = () => {
                 )}
               </button>
             )}
+
+            <button
+              className="bg-black text-[#ddd] hover:bg-[#2b2a2a] font-medium px-4 py-2 transition-all shadow rounded-lg"
+              onClick={saveArtifactsToProject}
+            >
+              Save Artifact
+            </button>
           </div>
 
           {mode === "preview" && selectedCode.language === "html" && (

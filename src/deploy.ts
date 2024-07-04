@@ -139,7 +139,7 @@ async function createDomain(
   }
 }
 
-async function deploy(code: Blob, serviceName: string): Promise<string> {
+async function deploy(code: Blob, serviceName: string) {
   try {
     if (!code) throw new Error("Code is required");
 
@@ -161,7 +161,10 @@ async function deploy(code: Blob, serviceName: string): Promise<string> {
 
     const domain = await createDomain(serviceID, environmentID, serviceName);
 
-    return domain;
+    return {
+      projectID,
+      domain,
+    };
   } catch (error) {
     console.error(error);
     throw error;
